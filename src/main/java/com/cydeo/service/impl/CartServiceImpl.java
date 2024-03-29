@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.cydeo.service.impl.ProductServiceImpl.PRODUCT_LIST;
 
@@ -24,7 +25,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItem> retrieveCartDetail(UUID cartId) {
-      CART_LIST.stream()
+        return CART_LIST.stream()
+                .filter(cart -> cart.getId().equals(cartId))
+                .findFirst() // Find the first cart with matching cartId
+                .map(Cart::getCartItemList) // Extract the cartItemList if cart is present
+                .orElse(new ArrayList<>()) // Return an empty list if cart is not found
+                .stream() // Flatten the list of cart items
+                .collect(Collectors.toList()); // Collect the cart items into a
     }
 
     @Override
