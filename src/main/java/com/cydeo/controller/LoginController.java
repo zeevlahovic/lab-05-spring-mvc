@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/login/{email}/{phoneNumber}")
-    public String profilePage(Model model,@PathVariable String email,@PathVariable String phoneNumber ) {
+    public String loginPage(Model model,@PathVariable String email,@PathVariable String phoneNumber ) {
 
         model.addAttribute("email",email);
         model.addAttribute("phoneNumber",phoneNumber);

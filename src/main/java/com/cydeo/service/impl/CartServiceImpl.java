@@ -24,8 +24,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItem> retrieveCartDetail(UUID cartId) {
-        // todo implement method using stream
-        return new ArrayList<>();
+      CART_LIST.stream()
     }
 
     @Override
