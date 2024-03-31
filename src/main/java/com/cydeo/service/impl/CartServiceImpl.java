@@ -1,8 +1,10 @@
 package com.cydeo.service.impl;
+
 import com.cydeo.model.Cart;
 import com.cydeo.model.CartItem;
 import com.cydeo.service.CartService;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +67,9 @@ public class CartServiceImpl implements CartService {
 
         BigDecimal cart1TotalAmount = BigDecimal.ZERO;
 
-        // todo change to stream
-        for (CartItem cartItem : cartItemList1) {
-            cart1TotalAmount = cart1TotalAmount.add(cartItem.getTotalAmount());
-        }
+        cart1TotalAmount = cartItemList1.stream()
+                .map(CartItem::getTotalAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         cart1.setCartTotalAmount(cart1TotalAmount);
 
@@ -79,10 +80,9 @@ public class CartServiceImpl implements CartService {
 
         BigDecimal cart2TotalAmount = BigDecimal.ZERO;
 
-        // todo change to stream
-        for (CartItem cartItem : cartItemList2) {
-            cart2TotalAmount = cart2TotalAmount.add(cartItem.getTotalAmount());
-        }
+        cart1TotalAmount = cartItemList2.stream()
+                .map(CartItem::getTotalAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         cart2.setCartTotalAmount(cart2TotalAmount);
 
