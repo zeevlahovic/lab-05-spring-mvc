@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -16,14 +17,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProduct(String name) {
-        List<Product> list = new ArrayList<>();
-        for (Product eachProduct : PRODUCT_LIST) {
-            if (eachProduct.getName().startsWith(name)){
-                list.add(eachProduct);
-            }
 
-        }
-        return list;
+        return PRODUCT_LIST.stream()
+                .filter(product -> product.getName().toLowerCase().startsWith(name))
+                .collect(Collectors.toList());
     }
 
     @Override
