@@ -12,6 +12,12 @@ import static com.cydeo.service.impl.CartServiceImpl.CART_LIST;
 @Controller
 public class CartController {
 
+   private final CartServiceImpl cartService;
+
+    public CartController(CartServiceImpl cartService) {
+        this.cartService = cartService;
+    }
+
     @RequestMapping("/cart-list")
     public String cartListPage(Model model){
 
@@ -21,11 +27,10 @@ public class CartController {
     }
 
     @RequestMapping("/cart-list/{cartId}")
-    public String cartListPage2(Model model , @PathVariable String cartId){
+    public String cartListPage2(Model model , @PathVariable UUID cartId){
 
-        CartServiceImpl cartService = new CartServiceImpl();
 
-        model.addAttribute("cartItemList", cartService.retrieveCartDetail(UUID.fromString(cartId)));
+        model.addAttribute("cartItemList", cartService.retrieveCartDetail(cartId));
 
 
         return "cart/cart-detail";
